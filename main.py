@@ -8,11 +8,14 @@ import posterous
 
 class MainPage(webapp.RequestHandler):
   def get(self):
-    logging.debug("home page")
+    #logging.debug("home page")
     #self.response.out.write("Hello World!")
-    posts = posterous.Posterous.all().order('-date').fetch(1000)
-    for post in posts:
-        self.response.out.write("%s wrote <a href='%s'>%s</a> at %s.<br/>" % (post.creator,post.url,post.title,post.date))
+    posts = posterous.Posterous.all().order('-date').fetch(3)
+    template_values = {'posts': posts}
+    self.response.out.write(template.render('index.html',template_values)) 
+    #for post in posts:
+    #    self.response.out.write("%s wrote <a href='%s'>%s</a> at %s.<br/>" % (post.creator,post.url,post.title,post.date))
+    
 
 ROUTE = [('/', MainPage)]
 

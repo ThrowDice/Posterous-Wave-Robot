@@ -15,11 +15,11 @@ def PostABlog(email,password,title,body,site_id,autopost=1,tags=""):
         site_id = site_id.encode("utf-8")
         posturl = "http://posterous.com/api/newpost"
         if site_id == "289080":
-            data = "autopost=0&site_id=289080&title=%s&body=%s&source=google-wave-robot&sourceLink=http://blog.kangye.org" % (title,body)
+            data = "autopost=0&site_id=289080&title=%s&body=%s&source=google-wave-robot&sourceLink=http://posterous-robot.appspot.com/" % (title,body)
         elif site_id == "0":
-            data = "title=%s&body=%s&source=google-wave-robot&sourceLink=http://blog.kangye.org" % (title,body)
+            data = "title=%s&body=%s&source=google-wave-robot&sourceLink=http://posterous-robot.appspot.com/" % (title,body)
         else:
-            data = "site_id=%s&title=%s&body=%s&source=google-wave-robot&sourceLink=http://blog.kangye.org" % (site_id,title,body)
+            data = "site_id=%s&title=%s&body=%s&source=google-wave-robot&sourceLink=http://posterous-robot.appspot.com/" % (site_id,title,body)
         req = urllib2.Request(posturl)
         base64string = base64.encodestring(\
         '%s:%s' % (email, password))[:-1]

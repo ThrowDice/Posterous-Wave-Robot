@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<title>
+Posterous-Robot - The Google Wave robot for blogging to Posterous.
+</title>
+<style type="text/css">
+#top{
+border-bottom:solid 1px;
+padding-bottom:5px;
+text-align:left;
+}
+
+#foot{
+border-top:solid 1px;
+margin-top:10px;
+margin-bottom:20px;
+padding:5px;
+text-align:center;
+}
+</style>
+</head>
+<body>
+<div id="top">
+<h1>Posterous-Robot</h1>
+</div>
+<div id="content">
+<h3>What is Posterous-Robot?</h3>
+<p>
+Posterous-Robot is first a Google Wave robot. It is built by lookon with Google 
+Wave Python Library and Posterous API. The posterous bot helps you to post blog
+to posterous.com in Google Wave.
+</p>
+<h3>How to use Posterous-Robot</h3>
+<p>
+It's easy to use Poterous-Robot in Google Wave. You just need to add posterous-robot@appspot
+to your contact and start a new wave with the robot. After logining to Posterous,
+you can post blog to Posterous by editing the title and body of the foot wavelet.
+</p>
+<p>
+A detailed guide: <a href="http://blog.kangye.org/how-to-write-a-blog-using-google-wave-robot-f">How to write a blog using Google Wave Robot for Posterous.</a>
+</p>
+<h3>Any Suggestion?</h3>
+<p>
+If you have problems using the posterous bot or have some suggestion, you can 
+leave comment at my blog. My twitter account is lookon. Any suggestion will be 
+welcome.
+</p>
+<h3>Recent Posts from Google Wave</h3>
+<ul>
+{% for post in posts %}
+<li>
+"{{post.title}}" - by {{post.creator}} <a target="_blank" href="{{post.url}}"><img src="/assets/reply.png"/></a>
+</li>
+{% endfor %}
+</ul>
+</div>
+<div id="foot">
+Created by lookon : <a href="http://blog.kangye.org">Blog</a> | <a href="https://twitter.com/lookon">Twitter</a> | 
+<a href="http://friendfeed.com/lookon">FriendFeed</a>
+</div>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=4992534; 
+var sc_invisible=1; 
+var sc_partition=57; 
+var sc_click_stat=1; 
+var sc_security="74b06edd"; 
+</script>
+
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter.js"></script><noscript><div
+class="statcounter"><a title="click tracking"
+href="http://www.statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/4992534/0/74b06edd/1/"
+alt="click tracking" ></a></div></noscript>
+<!-- End of StatCounter Code -->
+</body>
+</html>
