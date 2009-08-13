@@ -4,18 +4,22 @@ import urllib2
 import base64
 import logging
 import re
+from xml.etree import ElementTree
 
-def PostABlog(email,password,site_id,title,body,tags=""):
+def PostABlog(email,password,title,body,site_id,autopost=1,tags=""):
     logging.info("PostABlog trigged.")
-    logging.info("title : %s" % title)
-    logging.info("body : %s" % body)
+    logging.info("%s, %s" % (title,site_id))
     if title and body:
         title = title.encode("utf-8")
         body = body.encode("utf-8")
-        logging.info("body : %s" % body)
-        body = body.replace("\n","<br/>")
+        site_id = site_id.encode("utf-8")
         posturl = "http://posterous.com/api/newpost"
-        data = "title=%s&body=%s&source=wave-robot&sourceLink=http://blog.kangye.org" % (title,body)
+        if site_id == "289080":
+            data = "autopost=0&site_id=289080&title=%s&body=%s&source=google-wave-robot&sourceLink=http://blog.kangye.org" % (title,body)
+        elif site_id == "0":
+            data = "title=%s&body=%s&source=google-wave-robot&sourceLink=http://blog.kangye.org" % (title,body)
+        else:
+            data = "site_id=%s&title=%s&body=%s&source=google-wave-robot&sourceLink=http://blog.kangye.org" % (site_id,title,body)
         req = urllib2.Request(posturl)
         base64string = base64.encodestring(\
         '%s:%s' % (email, password))[:-1]
@@ -29,7 +33,7 @@ def PostABlog(email,password,site_id,title,body,tags=""):
         logging.info("Title or body missed.")
 
 def AuthAUser(email,password):
-    authurl = "http://posterous.com/api/newpost"
+    authurl = "http://posterous.com/api/getsites"
     req = urllib2.Request(authurl)
     base64string = base64.encodestring(\
     '%s:%s' % (email, password))[:-1]
@@ -49,7 +53,27 @@ Invalid Posterous email or password."""
 #        quote = response.index("\"",msg+5)
 #        msg = response[msg+5,quote]
 #        return msg
-     
+ 
+def GetSites(email,password):
+    authurl = "http://posterous.com/api/getsites"
+    req = urllib2.Request(authurl)
+    base64string = base64.encodestring(\
+    '%s:%s' % (email, password))[:-1]
+    authheader =  "Basic %s" % base64string
+    req.add_header("Authorization", authheader)
+    try:
+        handle = urllib2.urlopen(req)
+        rsp = handle.read()
+        logging.info(rsp)
+        root = ElementTree.fromstring(rsp)
+        sites = []
+        for site in root.findall("site"):
+            sites.append((site.find("id").text,site.find("name").text))
+        return sites
+    except:
+        return """
+Invalid Posterous email or password."""
+
     
 def GetTagsByTitle(title):
     pattern = "((tags:.*))$"
